@@ -59,12 +59,14 @@
 .pnv-tabs .pnv-day{display:block;font-family:'Cinzel Decorative',Georgia,serif;font-weight:700;font-size:clamp(.78rem,3.3vw,1.05rem);letter-spacing:.02em}
 .pnv-tabs .pnv-theme{display:block;font-style:italic;font-size:clamp(.8rem,2.8vw,.98rem);line-height:1.15;margin-top:3px;opacity:.85}
 
+#pnv-t0:checked ~ .pnv-tabs label[for=pnv-t0],
 #pnv-t1:checked ~ .pnv-tabs label[for=pnv-t1],
 #pnv-t2:checked ~ .pnv-tabs label[for=pnv-t2],
 #pnv-t3:checked ~ .pnv-tabs label[for=pnv-t3]{
   background:var(--pnv-green);color:var(--pnv-cream);transform:none;
 }
 .pnv > input:focus-visible ~ .pnv-tabs label{outline:none}
+#pnv-t0:focus-visible ~ .pnv-tabs label[for=pnv-t0],
 #pnv-t1:focus-visible ~ .pnv-tabs label[for=pnv-t1],
 #pnv-t2:focus-visible ~ .pnv-tabs label[for=pnv-t2],
 #pnv-t3:focus-visible ~ .pnv-tabs label[for=pnv-t3]{outline:3px solid var(--pnv-rose);outline-offset:3px}
@@ -77,6 +79,7 @@
   border-radius:0 0 70px 12px;
   padding:26px 14px 30px;
 }
+#pnv-t0:checked ~ .pnv-panels .pnv-p0,
 #pnv-t1:checked ~ .pnv-panels .pnv-p1,
 #pnv-t2:checked ~ .pnv-panels .pnv-p2,
 #pnv-t3:checked ~ .pnv-panels .pnv-p3{display:block;animation:pnv-in .45s ease-out}
@@ -115,6 +118,19 @@
 .pnv a.pnv-map:hover,.pnv a.pnv-map:focus-visible{color:var(--pnv-green)}
 .pnv a.pnv-map:focus-visible{outline:2px solid var(--pnv-rose);outline-offset:3px}
 
+/* ---------- scheda "Il viaggio" ---------- */
+.pnv-trip{
+  margin:0 6px 18px;padding:18px 20px 20px;
+  background:var(--pnv-cream);
+  border:3px double var(--pnv-gold);
+  border-radius:44px 12px 44px 12px;
+}
+.pnv-trip:last-child{margin-bottom:0}
+.pnv .pnv-trip .pnv-name{font-size:1.25rem;margin-bottom:6px}
+.pnv .pnv-trip .pnv-name span{color:var(--pnv-rose)}
+.pnv .pnv-trip p{margin:4px 0 0;font-size:1.08rem}
+.pnv .pnv-trip strong{color:var(--pnv-green)}
+
 /* ---------- piè di pagina ---------- */
 .pnv-foot{
   margin-top:22px;text-align:center;font-style:italic;font-size:.98rem;color:var(--pnv-green);
@@ -124,7 +140,9 @@
 @media (max-width:480px){
   .pnv{padding:20px 10px 26px;font-size:18px}
   .pnv-tabs{gap:6px;padding:0}
-  .pnv-tabs label{padding:14px 4px 10px}
+  .pnv-tabs label{padding:14px 2px 10px}
+  .pnv-tabs .pnv-day{font-size:.68rem}
+  .pnv-tabs .pnv-theme{font-size:.74rem}
   .pnv-panel{padding:22px 8px 26px}
   .pnv-list li{grid-template-columns:70px 1fr}
   .pnv-time{width:64px;height:64px;font-size:.86rem}
@@ -135,7 +153,8 @@
 </style>
 
 <div class="pnv">
-  <input type="radio" name="pnv-giorno" id="pnv-t1" checked aria-label="Venerdì">
+  <input type="radio" name="pnv-giorno" id="pnv-t0" checked aria-label="Il viaggio">
+  <input type="radio" name="pnv-giorno" id="pnv-t1" aria-label="Venerdì">
   <input type="radio" name="pnv-giorno" id="pnv-t2" aria-label="Sabato">
   <input type="radio" name="pnv-giorno" id="pnv-t3" aria-label="Domenica">
 
@@ -157,12 +176,28 @@
   </header>
 
   <div class="pnv-tabs" role="presentation">
+    <label for="pnv-t0"><span class="pnv-day">Il viaggio</span><span class="pnv-theme">Andata e ritorno</span></label>
     <label for="pnv-t1"><span class="pnv-day">Venerdì</span><span class="pnv-theme">Île de la Cité e Marais</span></label>
     <label for="pnv-t2"><span class="pnv-day">Sabato</span><span class="pnv-theme">Art Nouveau e Senna</span></label>
     <label for="pnv-t3"><span class="pnv-day">Domenica</span><span class="pnv-theme">Montmartre e Louvre</span></label>
   </div>
 
   <div class="pnv-panels">
+
+    <!-- ================= IL VIAGGIO ================= -->
+    <section class="pnv-panel pnv-p0" aria-label="Il viaggio">
+      <p class="pnv-lead">Come si arriva a Parigi e come si torna.</p>
+      <div class="pnv-trip">
+        <h3 class="pnv-name">Andata</h3>
+        <p><strong>Partenza:</strong> 5/11 alle ore 10:00 con XXBUS.</p>
+        <p><strong>Arrivo a Parigi:</strong> alle ore xxx.</p>
+      </div>
+      <div class="pnv-trip">
+        <h3 class="pnv-name">Ritorno</h3>
+        <p><strong>Partenza:</strong> 5/11 alle ore 10:00 con XXBUS.</p>
+        <p><strong>Arrivo a Parigi:</strong> alle ore xxx.</p>
+      </div>
+    </section>
 
     <!-- ================= VENERDÌ ================= -->
     <section class="pnv-panel pnv-p1" aria-label="Programma di venerdì">
@@ -329,3 +364,4 @@
     Gli orari sono indicativi: controlla i siti ufficiali prima di partire.
   </p>
 </div>
+
