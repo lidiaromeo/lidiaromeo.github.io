@@ -1,0 +1,331 @@
+<!--
+  PROGRAMMA PARIGI - blocco "HTML personalizzato" per WordPress
+  Come usarlo: nell'editor a blocchi aggiungi il blocco "HTML personalizzato"
+  e incolla tutto questo codice. Non servono plugin né JavaScript:
+  le schede funzionano solo con CSS. Tutti gli stili iniziano con ".pnv"
+  per non interferire con il tema.
+-->
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&display=swap');
+
+.pnv{
+  --pnv-cream:#f4ecd8;
+  --pnv-paper:#fbf6e9;
+  --pnv-green:#2e4a3b;
+  --pnv-sage:#6f9275;
+  --pnv-gold:#b88a38;
+  --pnv-rose:#a8553f;
+  --pnv-ink:#2a2a22;
+  box-sizing:border-box;
+  max-width:760px;
+  margin:0 auto;
+  padding:28px 18px 34px;
+  background:
+    radial-gradient(circle at 12% 0%, rgba(184,138,56,.12), transparent 40%),
+    radial-gradient(circle at 100% 100%, rgba(111,146,117,.16), transparent 45%),
+    var(--pnv-cream);
+  border:3px double var(--pnv-gold);
+  border-radius:28px 28px 90px 28px;
+  color:var(--pnv-ink);
+  font-family:'Cormorant Garamond',Georgia,'Times New Roman',serif;
+  font-size:19px;
+  line-height:1.45;
+}
+.pnv *,.pnv *::before,.pnv *::after{box-sizing:border-box}
+.pnv h2,.pnv h3,.pnv p{margin:0;padding:0;border:0}
+
+/* ---------- intestazione ---------- */
+.pnv-head{text-align:center;margin-bottom:22px}
+.pnv-head svg{display:block;margin:0 auto 6px;width:150px;height:auto}
+.pnv .pnv-title{
+  font-family:'Cinzel Decorative','Cormorant Garamond',Georgia,serif;
+  font-weight:700;font-size:clamp(2rem,8vw,3rem);line-height:1.05;
+  color:var(--pnv-green);letter-spacing:.04em;text-transform:none;
+}
+.pnv .pnv-sub{font-style:italic;color:var(--pnv-rose);font-size:1.15rem;margin-top:6px}
+
+/* ---------- schede (solo CSS) ---------- */
+.pnv > input[type=radio]{position:absolute;opacity:0;pointer-events:none;width:1px;height:1px}
+.pnv-tabs{display:flex;gap:10px;justify-content:center;align-items:flex-end;margin:0 0 -3px;padding:0 4px}
+.pnv-tabs label{
+  flex:1 1 0;max-width:210px;min-width:0;cursor:pointer;text-align:center;
+  padding:16px 8px 12px;
+  border:2px solid var(--pnv-gold);border-bottom:0;
+  border-radius:999px 999px 0 0 / 70px 70px 0 0;
+  background:var(--pnv-paper);color:var(--pnv-green);
+  transition:background .2s,color .2s,transform .2s;
+}
+.pnv-tabs label:hover{background:#fff;transform:translateY(-2px)}
+.pnv-tabs .pnv-day{display:block;font-family:'Cinzel Decorative',Georgia,serif;font-weight:700;font-size:clamp(.78rem,3.3vw,1.05rem);letter-spacing:.02em}
+.pnv-tabs .pnv-theme{display:block;font-style:italic;font-size:clamp(.8rem,2.8vw,.98rem);line-height:1.15;margin-top:3px;opacity:.85}
+
+#pnv-t1:checked ~ .pnv-tabs label[for=pnv-t1],
+#pnv-t2:checked ~ .pnv-tabs label[for=pnv-t2],
+#pnv-t3:checked ~ .pnv-tabs label[for=pnv-t3]{
+  background:var(--pnv-green);color:var(--pnv-cream);transform:none;
+}
+.pnv > input:focus-visible ~ .pnv-tabs label{outline:none}
+#pnv-t1:focus-visible ~ .pnv-tabs label[for=pnv-t1],
+#pnv-t2:focus-visible ~ .pnv-tabs label[for=pnv-t2],
+#pnv-t3:focus-visible ~ .pnv-tabs label[for=pnv-t3]{outline:3px solid var(--pnv-rose);outline-offset:3px}
+
+/* ---------- pannelli ---------- */
+.pnv-panel{
+  display:none;
+  background:var(--pnv-paper);
+  border:2px solid var(--pnv-gold);
+  border-radius:0 0 70px 12px;
+  padding:26px 14px 30px;
+}
+#pnv-t1:checked ~ .pnv-panels .pnv-p1,
+#pnv-t2:checked ~ .pnv-panels .pnv-p2,
+#pnv-t3:checked ~ .pnv-panels .pnv-p3{display:block;animation:pnv-in .45s ease-out}
+@keyframes pnv-in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+.pnv .pnv-lead{
+  text-align:center;font-style:italic;color:var(--pnv-green);
+  font-size:1.2rem;margin:0 8px 22px;
+}
+
+/* ---------- elenco tappe con rampicante ---------- */
+.pnv-list{
+  list-style:none;margin:0;padding:0;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='76' height='120' viewBox='0 0 76 120'%3E%3Cpath d='M38 0C14 30 62 30 38 60C14 90 62 90 38 120' fill='none' stroke='%236f9275' stroke-width='2.2' stroke-linecap='round'/%3E%3Cellipse cx='53' cy='30' rx='9' ry='4' transform='rotate(-35 53 30)' fill='%236f9275' opacity='.55'/%3E%3Cellipse cx='23' cy='90' rx='9' ry='4' transform='rotate(35 23 90)' fill='%23b88a38' opacity='.55'/%3E%3C/svg%3E");
+  background-repeat:repeat-y;background-position:0 0;
+}
+.pnv-list li{display:grid;grid-template-columns:76px 1fr;gap:6px 6px;align-items:start;margin:0;padding:0 0 22px}
+.pnv-list li:last-child{padding-bottom:0}
+.pnv-time{
+  width:70px;height:70px;margin:0 3px;border-radius:50%;
+  display:grid;place-items:center;text-align:center;
+  background:var(--pnv-cream);border:3px double var(--pnv-gold);
+  color:var(--pnv-green);font-weight:600;font-size:.95rem;line-height:1.05;
+  box-shadow:0 0 0 4px var(--pnv-paper);
+}
+.pnv-body{padding-top:6px}
+.pnv .pnv-name{
+  font-family:'Cinzel Decorative','Cormorant Garamond',Georgia,serif;
+  font-weight:700;font-size:1.12rem;line-height:1.2;color:var(--pnv-green);
+}
+.pnv .pnv-note{margin-top:4px;font-size:1.02rem;color:var(--pnv-ink)}
+.pnv a.pnv-map{
+  display:inline-block;margin-top:6px;font-style:italic;font-size:.98rem;
+  color:var(--pnv-rose);text-decoration:none;border-bottom:1px solid currentColor;
+}
+.pnv a.pnv-map:hover,.pnv a.pnv-map:focus-visible{color:var(--pnv-green)}
+.pnv a.pnv-map:focus-visible{outline:2px solid var(--pnv-rose);outline-offset:3px}
+
+/* ---------- piè di pagina ---------- */
+.pnv-foot{
+  margin-top:22px;text-align:center;font-style:italic;font-size:.98rem;color:var(--pnv-green);
+}
+.pnv-foot svg{display:block;margin:0 auto 6px;width:120px;height:auto}
+
+@media (max-width:480px){
+  .pnv{padding:20px 10px 26px;font-size:18px}
+  .pnv-tabs{gap:6px;padding:0}
+  .pnv-tabs label{padding:14px 4px 10px}
+  .pnv-panel{padding:22px 8px 26px}
+  .pnv-list li{grid-template-columns:70px 1fr}
+  .pnv-time{width:64px;height:64px;font-size:.86rem}
+}
+@media (prefers-reduced-motion:reduce){
+  .pnv-panel,.pnv-tabs label{animation:none!important;transition:none!important}
+}
+</style>
+
+<div class="pnv">
+  <input type="radio" name="pnv-giorno" id="pnv-t1" checked aria-label="Venerdì">
+  <input type="radio" name="pnv-giorno" id="pnv-t2" aria-label="Sabato">
+  <input type="radio" name="pnv-giorno" id="pnv-t3" aria-label="Domenica">
+
+  <header class="pnv-head">
+    <svg viewBox="0 0 150 46" aria-hidden="true" focusable="false">
+      <g fill="none" stroke="#b88a38" stroke-width="1.6" stroke-linecap="round">
+        <path d="M6 30C28 6 44 44 66 26"/>
+        <path d="M144 30C122 6 106 44 84 26"/>
+        <path d="M75 8C64 14 63 28 75 40C87 28 86 14 75 8Z" fill="#fbf6e9"/>
+        <path d="M75 14V38"/>
+      </g>
+      <g fill="#6f9275" opacity=".7">
+        <ellipse cx="32" cy="14" rx="7" ry="3" transform="rotate(-30 32 14)"/>
+        <ellipse cx="118" cy="14" rx="7" ry="3" transform="rotate(30 118 14)"/>
+      </g>
+    </svg>
+    <h2 class="pnv-title">Parigi</h2>
+    <p class="pnv-sub">tre giorni tra palazzi, musei e Art Nouveau</p>
+  </header>
+
+  <div class="pnv-tabs" role="presentation">
+    <label for="pnv-t1"><span class="pnv-day">Venerdì</span><span class="pnv-theme">Île de la Cité e Marais</span></label>
+    <label for="pnv-t2"><span class="pnv-day">Sabato</span><span class="pnv-theme">Art Nouveau e Senna</span></label>
+    <label for="pnv-t3"><span class="pnv-day">Domenica</span><span class="pnv-theme">Montmartre e Louvre</span></label>
+  </div>
+
+  <div class="pnv-panels">
+
+    <!-- ================= VENERDÌ ================= -->
+    <section class="pnv-panel pnv-p1" aria-label="Programma di venerdì">
+      <p class="pnv-lead">Dal Quartiere Latino all'isola della Cité, poi il Marais.</p>
+      <ol class="pnv-list">
+        <li>
+          <div class="pnv-time">9:30</div>
+          <div class="pnv-body">
+            <h3 class="pnv-name">Musée de Cluny</h3>
+            <p class="pnv-note">Il museo del Medioevo, con gli arazzi della Dama e l'Unicorno.</p>
+            <a class="pnv-map" href="https://www.google.com/maps/search/?api=1&amp;query=Musee+de+Cluny+Paris" target="_blank" rel="noopener">Apri sulla mappa</a>
+          </div>
+        </li>
+        <li>
+          <div class="pnv-time">11:00</div>
+          <div class="pnv-body">
+            <h3 class="pnv-name">Notre-Dame</h3>
+            <p class="pnv-note">Ingresso gratuito, con prenotazione facoltativa di una fascia oraria.</p>
+            <a class="pnv-map" href="https://www.google.com/maps/search/?api=1&amp;query=Cathedrale+Notre-Dame+de+Paris" target="_blank" rel="noopener">Apri sulla mappa</a>
+          </div>
+        </li>
+        <li>
+          <div class="pnv-time">12:00</div>
+          <div class="pnv-body">
+            <h3 class="pnv-name">Sainte-Chapelle</h3>
+            <p class="pnv-note">Vetrate altissime. Spesso c'è coda: meglio prenotare.</p>
+            <a class="pnv-map" href="https://www.google.com/maps/search/?api=1&amp;query=Sainte-Chapelle+Paris" target="_blank" rel="noopener">Apri sulla mappa</a>
+          </div>
+        </li>
+        <li>
+          <div class="pnv-time">13:30</div>
+          <div class="pnv-body">
+            <h3 class="pnv-name">Hôtel Lambert</h3>
+            <p class="pnv-note">Sull'Île Saint-Louis: si ammira dall'esterno. Pranzo qui intorno.</p>
+            <a class="pnv-map" href="https://www.google.com/maps/search/?api=1&amp;query=Hotel+Lambert+Ile+Saint-Louis+Paris" target="_blank" rel="noopener">Apri sulla mappa</a>
+          </div>
+        </li>
+        <li>
+          <div class="pnv-time">14:00</div>
+          <div class="pnv-body">
+            <h3 class="pnv-name">Hôtel de Lauzun</h3>
+            <p class="pnv-note">Sul Quai d'Anjou, tra gli altri palazzi dell'isola.</p>
+            <a class="pnv-map" href="https://www.google.com/maps/search/?api=1&amp;query=Hotel+de+Lauzun+Paris" target="_blank" rel="noopener">Apri sulla mappa</a>
+          </div>
+        </li>
+        <li>
+          <div class="pnv-time">15:00</div>
+          <div class="pnv-body">
+            <h3 class="pnv-name">Le Marais, Place des Vosges</h3>
+            <p class="pnv-note">A circa 1 km a piedi. Piazza porticata e uno o due musei (Carnavalet, Picasso, Victor Hugo) fino alle 18.</p>
+            <a class="pnv-map" href="https://www.google.com/maps/search/?api=1&amp;query=Place+des+Vosges+Paris" target="_blank" rel="noopener">Apri sulla mappa</a>
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <!-- ================= SABATO ================= -->
+    <section class="pnv-panel pnv-p2" aria-label="Programma di sabato">
+      <p class="pnv-lead">Un filo Art Nouveau lungo la Senna, fino alla Tour Eiffel.</p>
+      <ol class="pnv-list">
+        <li>
+          <div class="pnv-time">9:30</div>
+          <div class="pnv-body">
+            <h3 class="pnv-name">Musée d'Orsay</h3>
+            <p class="pnv-note">Gli Impressionisti all'apertura, prima della folla.</p>
+            <a class="pnv-map" href="https://www.google.com/maps/search/?api=1&amp;query=Musee+d%27Orsay+Paris" target="_blank" rel="noopener">Apri sulla mappa</a>
+          </div>
+        </li>
+        <li>
+          <div class="pnv-time">12:00</div>
+          <div class="pnv-body">
+            <h3 class="pnv-name">Casa Lavirotte</h3>
+            <p class="pnv-note">Art Nouveau del 1901, in Avenue Rapp: si vede solo dall'esterno.</p>
+            <a class="pnv-map" href="https://www.google.com/maps/search/?api=1&amp;query=29+Avenue+Rapp+Paris" target="_blank" rel="noopener">Apri sulla mappa</a>
+          </div>
+        </li>
+        <li>
+          <div class="pnv-time">12:45</div>
+          <div class="pnv-body">
+            <h3 class="pnv-name">La Fermette Marbeuf</h3>
+            <p class="pnv-note">Pranzo in un ristorante Belle Époque con sala Art Nouveau. Meglio prenotare e verificare l'orario.</p>
+            <a class="pnv-map" href="https://www.google.com/maps/search/?api=1&amp;query=La+Fermette+Marbeuf+Paris" target="_blank" rel="noopener">Apri sulla mappa</a>
+          </div>
+        </li>
+        <li>
+          <div class="pnv-time">14:30</div>
+          <div class="pnv-body">
+            <h3 class="pnv-name">Palais de Tokyo</h3>
+            <p class="pnv-note">Arte contemporanea, aperto fino alle 21. Basta circa un'ora e mezza.</p>
+            <a class="pnv-map" href="https://www.google.com/maps/search/?api=1&amp;query=Palais+de+Tokyo+Paris" target="_blank" rel="noopener">Apri sulla mappa</a>
+          </div>
+        </li>
+        <li>
+          <div class="pnv-time">16:00</div>
+          <div class="pnv-body">
+            <h3 class="pnv-name">Castel Béranger</h3>
+            <p class="pnv-note">Il capolavoro di Hector Guimard, a circa 1,5 km. Residenza privata: si ammira la facciata.</p>
+            <a class="pnv-map" href="https://www.google.com/maps/search/?api=1&amp;query=Castel+Beranger+14+rue+La+Fontaine+Paris" target="_blank" rel="noopener">Apri sulla mappa</a>
+          </div>
+        </li>
+        <li>
+          <div class="pnv-time">Tra&shy;monto</div>
+          <div class="pnv-body">
+            <h3 class="pnv-name">Tour Eiffel</h3>
+            <p class="pnv-note">A fine giornata: la vedi illuminarsi.</p>
+            <a class="pnv-map" href="https://www.google.com/maps/search/?api=1&amp;query=Tour+Eiffel+Paris" target="_blank" rel="noopener">Apri sulla mappa</a>
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <!-- ================= DOMENICA ================= -->
+    <section class="pnv-panel pnv-p3" aria-label="Programma di domenica">
+      <p class="pnv-lead">Dalla collina di Montmartre al grande finale del Louvre.</p>
+      <ol class="pnv-list">
+        <li>
+          <div class="pnv-time">9:30</div>
+          <div class="pnv-body">
+            <h3 class="pnv-name">Sacré-Cœur</h3>
+            <p class="pnv-note">Ingresso gratuito, con vista su tutta Parigi.</p>
+            <a class="pnv-map" href="https://www.google.com/maps/search/?api=1&amp;query=Basilique+du+Sacre-Coeur+Paris" target="_blank" rel="noopener">Apri sulla mappa</a>
+          </div>
+        </li>
+        <li>
+          <div class="pnv-time">11:00</div>
+          <div class="pnv-body">
+            <h3 class="pnv-name">Espace Dalí</h3>
+            <p class="pnv-note">Si visita in circa un'ora, a due passi dalla basilica.</p>
+            <a class="pnv-map" href="https://www.google.com/maps/search/?api=1&amp;query=Espace+Dali+Montmartre+Paris" target="_blank" rel="noopener">Apri sulla mappa</a>
+          </div>
+        </li>
+        <li>
+          <div class="pnv-time">12:15</div>
+          <div class="pnv-body">
+            <h3 class="pnv-name">Pranzo a Montmartre</h3>
+            <p class="pnv-note">Una pausa tra i vicoli, poi la metro verso il centro.</p>
+          </div>
+        </li>
+        <li>
+          <div class="pnv-time">13:30</div>
+          <div class="pnv-body">
+            <h3 class="pnv-name">Galeries Lafayette</h3>
+            <p class="pnv-note">La cupola Art Nouveau al centro del negozio e la terrazza panoramica gratuita. La domenica aperto dalle 11 alle 20.</p>
+            <a class="pnv-map" href="https://www.google.com/maps/search/?api=1&amp;query=Galeries+Lafayette+Haussmann+Paris" target="_blank" rel="noopener">Apri sulla mappa</a>
+          </div>
+        </li>
+        <li>
+          <div class="pnv-time">15:00</div>
+          <div class="pnv-body">
+            <h3 class="pnv-name">Louvre</h3>
+            <p class="pnv-note">La domenica chiude alle 18: hai circa tre ore. Scegli due o tre sale da non perdere e prenota l'ingresso.</p>
+            <a class="pnv-map" href="https://www.google.com/maps/search/?api=1&amp;query=Musee+du+Louvre+Paris" target="_blank" rel="noopener">Apri sulla mappa</a>
+          </div>
+        </li>
+      </ol>
+    </section>
+
+  </div>
+
+  <p class="pnv-foot">
+    <svg viewBox="0 0 120 24" aria-hidden="true" focusable="false">
+      <path d="M4 14C24 -4 40 28 60 12C80 -4 96 28 116 10" fill="none" stroke="#b88a38" stroke-width="1.6" stroke-linecap="round"/>
+    </svg>
+    Gli orari sono indicativi: controlla i siti ufficiali prima di partire.
+  </p>
+</div>
