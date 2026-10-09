@@ -1,7 +1,7 @@
 {
   "name": "La Mia PWA",
   "short_name": "PWA",
-  "start_url": "/nome-repository/",
+  "start_url": "/lidiaromeo.github.io/",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#000000",
