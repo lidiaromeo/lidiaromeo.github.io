@@ -1,6 +1,25 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
+  <head>
+  <!-- Link al manifest -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#000000">
+  <link rel="apple-touch-icon" href="icon-192.png">
+</head>
+<body>
+
+  <!-- Il tuo contenuto HTML -->
+
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('sw.js')
+        .then(() => console.log('Service Worker registrato con successo.'))
+        .catch((error) => console.log('Registrazione Service Worker fallita:', error));
+    }
+  </script>
+</body>
+
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Tre giorni a Parigi</title>
